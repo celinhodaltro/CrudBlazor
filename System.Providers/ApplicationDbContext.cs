@@ -4,9 +4,10 @@ using System.Configuration;
 using System.Entities;
 using System.Security.Principal;
 
+namespace System.Provider;
 public class ApplicationDbContext : DbContext
 {
-    public string ConnectionString { get; set; } = "Server=localhost;Database=Main;Uid=root;Pwd=admin";
+    public string ConnectionString { get; set; } = "Server=localhost;Database=CrudProducts;Uid=root;Pwd=admin";
 
 
     public ApplicationDbContext() { }
@@ -21,8 +22,8 @@ public class ApplicationDbContext : DbContext
             optionsBuilder.UseMySQL(ConnectionString);
         }
     }
-
-
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Category> Categories { get; set; }
 
 
 }
