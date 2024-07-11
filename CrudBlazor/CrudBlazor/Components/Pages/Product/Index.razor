@@ -1,6 +1,7 @@
 ﻿@page "/Product"
-@attribute [StreamRendering]
 @inject ProductBusinessRules ProductBusinessRules;
+@rendermode InteractiveServer
+
 <PageTitle>Product</PageTitle>
 
 <h1>Products</h1>
@@ -23,29 +24,48 @@ else
                 <th>Price</th>
                 <th>Description</th>
                 <th>Category</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var Product in Products)
+            @foreach (var product in Products)
             {
                 <tr>
-                    <td>@Product.Name</td>
-                    <td>@Product.Price</td>
-                    <td>@Product.Description</td>
-                    <td>@Product.Category.Name</td>
+                    <td>@product.Name</td>
+                    <td>@product.Price</td>
+                    <td>@product.Description</td>
+                    <td>@product.Category.Name</td>
                 </tr>
             }
         </tbody>
     </table>
 }
 
+<button class="btn btn-primary mt-3" @onclick="ShowAddProductModal">Add Product</button>
+
+@if (showAddProductModal)
+{
+    <ModalProductAdd IsOpen="true"></ModalProductAdd>
+}
+
+
+
 @code {
     private IEnumerable<Product> Products;
     private bool IsLoading = true;
+    private bool showAddProductModal = false;
+
+
     protected override async Task OnInitializedAsync()
     {
         Products = await ProductBusinessRules.GetAllProductsAsync();
         IsLoading = false;
     }
+
+    private void ShowAddProductModal()
+    {
+        showAddProductModal = true;
+    }
+
 
 }

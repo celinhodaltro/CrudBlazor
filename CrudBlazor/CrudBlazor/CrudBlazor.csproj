@@ -15,4 +15,8 @@
     <ProjectReference Include="..\..\System.Entities\System.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Components\Pages\Product\ModalProductAdd.razor" />
+  </ItemGroup>
+
 </Project>

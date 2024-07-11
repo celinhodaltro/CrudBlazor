@@ -1,0 +1,63 @@
+﻿@inject ProductBusinessRules ProductBusinessRules
+@rendermode InteractiveServer
+
+@if (IsOpen)
+{
+    <EditForm Model="@NewProduct" OnSubmit="AddProduct">
+        <div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
+
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Product</h5>
+                        <a type="button" class="close" @onclick="CloseModal">
+                            <span aria-hidden="true"><i class="bi bi-x"></i></span>
+                        </a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="productName">Name:</label>
+                            <input type="text" class="form-control" id="productName" @bind="NewProduct.Name">
+                            <ValidationMessage For="() => NewProduct!.Name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="productPrice">Price:</label>
+                            <input type="number" class="form-control" id="productPrice" @bind="NewProduct.Price">
+                            <ValidationMessage For="() => NewProduct!.Price" />
+                        </div>
+                        <div class="form-group">
+                            <label for="productDescription">Description:</label>
+                            <textarea class="form-control" id="productDescription" rows="3" @bind="NewProduct.Description"></textarea>
+                            <ValidationMessage For="() => NewProduct!.Description" />
+                        </div>
+                        <DataAnnotationsValidator></DataAnnotationsValidator>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" @onclick="CloseModal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Product</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </EditForm>
+}
+
+
+@code {
+    [Parameter]
+    public bool IsOpen { get; set; } = false;
+
+    private Product NewProduct = new();
+    private async Task AddProduct()
+    {
+        await ProductBusinessRules.CreateProductAsync(NewProduct);
+        IsOpen = false;
+    }
+
+    private void CloseModal()
+    {
+        IsOpen = false;
+    }
+}
