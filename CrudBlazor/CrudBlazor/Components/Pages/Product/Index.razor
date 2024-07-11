@@ -1,0 +1,51 @@
+﻿@page "/Product"
+@attribute [StreamRendering]
+@inject ProductBusinessRules ProductBusinessRules;
+<PageTitle>Product</PageTitle>
+
+<h1>Products</h1>
+<hr />
+
+@if (IsLoading)
+{
+    <p><em>Loading...</em></p>
+}
+else if (Products.Count() == 0)
+{
+    <p>No Products</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Product in Products)
+            {
+                <tr>
+                    <td>@Product.Name</td>
+                    <td>@Product.Price</td>
+                    <td>@Product.Description</td>
+                    <td>@Product.Category.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<Product> Products;
+    private bool IsLoading = true;
+    protected override async Task OnInitializedAsync()
+    {
+        Products = await ProductBusinessRules.GetAllProductsAsync();
+        IsLoading = false;
+    }
+
+}

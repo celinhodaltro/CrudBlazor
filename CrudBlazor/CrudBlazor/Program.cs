@@ -1,9 +1,11 @@
 
 using CrudBlazor.Components;
+using CrudBlazor.Injecter;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+Injecter.Inject(builder.Services);
+
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
