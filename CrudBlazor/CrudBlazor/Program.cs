@@ -1,4 +1,4 @@
-using CrudBlazor.Client.Pages;
+
 using CrudBlazor.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,7 +29,6 @@ app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
-    .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(CrudBlazor.Client._Imports).Assembly);
+    .AddInteractiveWebAssemblyRenderMode();
 
 app.Run();
