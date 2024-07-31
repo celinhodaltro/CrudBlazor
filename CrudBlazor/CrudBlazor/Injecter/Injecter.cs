@@ -21,6 +21,7 @@ namespace CrudBlazor.Injecter
         public static void InjecterBusinessRules(IServiceCollection Services)
         {
             Services.AddScoped<ProductBusinessRules>();
+            Services.AddScoped<CategoryBusinessRules>();
 
         }
 
