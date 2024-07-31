@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudBlazor", "CrudBlazor\CrudBlazor\CrudBlazor.csproj", "{012B68DA-9FF5-40C8-A68C-0E7AAAFCF8B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrudBlazor", "CrudBlazor\CrudBlazor\CrudBlazor.csproj", "{012B68DA-9FF5-40C8-A68C-0E7AAAFCF8B8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System.Front", "System.Front", "{031FA1A9-7343-4D76-AB7A-C944D1B6D9BD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System.Back", "System.Back", "{509F8798-D994-4BAC-ADEB-AEEFC0EABC13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.BusinessRules", "System.BusinessRules\System.BusinessRules.csproj", "{43D0C829-A64B-4835-99EF-1D971EB44A13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.BusinessRules", "System.BusinessRules\System.BusinessRules.csproj", "{43D0C829-A64B-4835-99EF-1D971EB44A13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Entities", "System.Entities\System.Entities.csproj", "{56B9B9A2-185C-42D2-8CAC-8831DE29E69F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Entities", "System.Entities\System.Entities.csproj", "{56B9B9A2-185C-42D2-8CAC-8831DE29E69F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Providers", "System.Providers\System.Providers.csproj", "{A36DF01A-5956-4926-8DC2-148E51835AD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Providers", "System.Providers\System.Providers.csproj", "{A36DF01A-5956-4926-8DC2-148E51835AD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
