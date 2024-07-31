@@ -21,7 +21,7 @@ namespace System.Entities
         public int CategoryId { get; set; }
 
         [ForeignKey("CategoryId")]
-        public Category Category { get; set; } = new();
+        public Category Category { get; set; } = null;
 
 
     }
