@@ -1,7 +1,11 @@
 ﻿@inject ProductBusinessRules ProductBusinessRules
+@inject NavigationManager Navigation
 @rendermode InteractiveServer
 
-@if (IsOpen)
+
+<button class="btn btn-primary mt-3" @onclick="ShowAddProductModal">Add Product</button>
+
+@if (showAddProductModal)
 {
     <EditForm Model="@NewProduct" OnSubmit="AddProduct">
         <div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
@@ -46,18 +50,24 @@
 
 
 @code {
-    [Parameter]
-    public bool IsOpen { get; set; } = false;
+    private bool showAddProductModal = false;
 
     private Product NewProduct = new();
     private async Task AddProduct()
     {
         await ProductBusinessRules.CreateProductAsync(NewProduct);
-        IsOpen = false;
+        showAddProductModal = false;
+        Navigation.Refresh();
+    }
+
+
+    private void ShowAddProductModal()
+    {
+        showAddProductModal = true;
     }
 
     private void CloseModal()
     {
-        IsOpen = false;
+        showAddProductModal = false;
     }
 }
