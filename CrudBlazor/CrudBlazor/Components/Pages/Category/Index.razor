@@ -1,0 +1,80 @@
+﻿@page "/Category"
+@inject CategoryBusinessRules CategoryBusinessRules;
+@rendermode InteractiveServer
+
+<PageTitle>Category</PageTitle>
+
+<h1>Categories</h1>
+<hr />
+
+@if (IsLoading)
+{
+    <p><em>Loading...</em></p>
+}
+else if (Categories.Count() == 0)
+{
+    <ModalCategoryAdd UpdateList="@UpdateCategoryList"></ModalCategoryAdd>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Categories)
+            {
+                <tr>
+                    <td>@category.Name</td>
+                    <td>@category.Description</td>
+                    <td class="btn-group">
+                        <ModalCategoryEdit Category="category" UpdateList="@UpdateCategoryList"></ModalCategoryEdit>
+                        <button type="button" @onclick="() => DeleteCategory(category)" class="btn btn-danger"><span class="bi bi-trash"></span></button>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="3" class="align-items-center">
+                    <ModalCategoryAdd UpdateList="@UpdateCategoryList"></ModalCategoryAdd>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+
+
+
+
+
+@code 
+{
+    private IEnumerable<Category> Categories;
+    private bool IsLoading = true;
+    private bool showAddCategoryModal = false;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await UpdateCategoryList();
+        IsLoading = false;
+    }
+
+    public async Task DeleteCategory(Category Category)
+    {
+        await CategoryBusinessRules.DeleteCategoryAsync(Category.Id);
+        await UpdateCategoryList();
+    } 
+
+    public async Task<bool> UpdateCategoryList()
+    {
+        Categories = await CategoryBusinessRules.GetAllCategorysAsync();
+        return true;
+    }
+
+
+}
