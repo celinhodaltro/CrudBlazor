@@ -1,4 +1,5 @@
 ﻿@inject ProductBusinessRules ProductBusinessRules
+@inject CategoryBusinessRules CategoryBusinessRules
 @inject NavigationManager Navigation
 @rendermode InteractiveServer
 
@@ -7,7 +8,7 @@
 
 @if (showAddProductModal)
 {
-    <EditForm Model="@NewProduct" OnSubmit="AddProduct">
+    <EditForm Model="@NewProduct" OnValidSubmit="AddProduct">
         <div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
 
             <div class="modal-dialog" role="document">
@@ -24,16 +25,33 @@
                             <input type="text" class="form-control" id="productName" @bind="NewProduct.Name">
                             <ValidationMessage For="() => NewProduct!.Name" />
                         </div>
+
                         <div class="form-group">
                             <label for="productPrice">Price:</label>
                             <input type="number" class="form-control" id="productPrice" @bind="NewProduct.Price">
                             <ValidationMessage For="() => NewProduct!.Price" />
-                        </div>
+                        </div
+                        >
                         <div class="form-group">
                             <label for="productDescription">Description:</label>
                             <textarea class="form-control" id="productDescription" rows="3" @bind="NewProduct.Description"></textarea>
                             <ValidationMessage For="() => NewProduct!.Description" />
                         </div>
+
+                        <div class="form-group">
+                            <label for="productCategory">Category:</label>
+                            <select class="form-control" @bind="NewProduct.CategoryId" @onclick="GetAllCategories">
+                                <option value="">Select a category</option>
+                                @if(Categories?.Count() > 0){
+                                    @foreach (var category in Categories)
+                                    {
+                                        <option value="@category.Id">@category.Name</option>
+                                    }
+                                }
+                            </select>
+                            <ValidationMessage For="() => NewProduct!.CategoryId" />
+                        </div>
+
                         <DataAnnotationsValidator></DataAnnotationsValidator>
 
                     </div>
@@ -49,15 +67,30 @@
 }
 
 
+
 @code {
     private bool showAddProductModal = false;
 
+    [Parameter]
+    public EventCallback<bool> UpdateList { get; set; }
+
+    private IEnumerable<Category> Categories;
+
+
     private Product NewProduct = new();
+
+
+    private async Task GetAllCategories()
+    {
+        Categories = await CategoryBusinessRules.GetAllCategorysAsync();
+    }
+
     private async Task AddProduct()
     {
         await ProductBusinessRules.CreateProductAsync(NewProduct);
         showAddProductModal = false;
-        Navigation.Refresh();
+        await UpdateList.InvokeAsync();
+        NewProduct = new Product();
     }
 
 

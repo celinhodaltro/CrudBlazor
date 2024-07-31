@@ -41,7 +41,7 @@ else
     </table>
 }
 
-<ModalProductAdd></ModalProductAdd>
+<ModalProductAdd UpdateList="UpdateProductList"></ModalProductAdd>
 
 
 
@@ -51,12 +51,19 @@ else
     private bool IsLoading = true;
     private bool showAddProductModal = false;
 
+    public async Task<bool> UpdateProductList()
+    {
+        Products = await ProductBusinessRules.GetAllProductsAsync();
+        return true;
+    }
 
     protected override async Task OnInitializedAsync()
     {
-        Products = await ProductBusinessRules.GetAllProductsAsync();
+        await UpdateProductList();
         IsLoading = false;
     }
+
+
 
 
 }
