@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Entities.Base;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace System.Provider
@@ -23,8 +24,10 @@ namespace System.Provider
 
         public async Task<IEnumerable<T>> GetAllAsync<T>() where T : class
         {
-            return await _context.Set<T>().ToListAsync();
+            return await _context.Set<T>().IncludeNavigations().ToListAsync();
         }
+
+
 
         public async Task<T> CreateAsync<T>(T entity) where T : class
         {
