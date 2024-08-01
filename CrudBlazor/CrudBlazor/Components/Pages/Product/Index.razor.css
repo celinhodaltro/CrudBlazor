@@ -1,3 +1,8 @@
 ﻿* {
     text-align:center;
 }
+
+
+.modal-header{
+    background-color: #049DD9  !important;
+}

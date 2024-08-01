@@ -53,7 +53,7 @@
 
     private Category NewCategory = new();
     private async Task AddCategory()
-    {
+    { a
         await CategoryBusinessRules.CreateCategoryAsync(NewCategory);
         showAddCategoryModal = false;
         await UpdateList.InvokeAsync();

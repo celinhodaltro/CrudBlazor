@@ -2,15 +2,28 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    height: 100vh; /* Adiciona altura total da viewport */
+}
+
+main {
+    background-color: #031626;
 }
 
 main {
     flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .sidebar {
     background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
 }
+
+.btn-primary {
+    background-color: #05C7F2 !important
+}
+
 
 .top-row {
     background-color: #f7f7f7;
@@ -27,23 +40,23 @@ main {
         text-decoration: none;
     }
 
-    .top-row ::deep a:hover, .top-row ::deep .btn-link:hover {
-        text-decoration: underline;
-    }
+        .top-row ::deep a:hover, .top-row ::deep .btn-link:hover {
+            text-decoration: underline;
+        }
 
-    .top-row ::deep a:first-child {
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+        .top-row ::deep a:first-child {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
 @media (max-width: 640.98px) {
     .top-row {
         justify-content: space-between;
     }
 
-    .top-row ::deep a, .top-row ::deep .btn-link {
-        margin-left: 0;
-    }
+        .top-row ::deep a, .top-row ::deep .btn-link {
+            margin-left: 0;
+        }
 }
 
 @media (min-width: 641px) {
@@ -64,11 +77,11 @@ main {
         z-index: 1;
     }
 
-    .top-row.auth ::deep a:first-child {
-        flex: 1;
-        text-align: right;
-        width: 0;
-    }
+        .top-row.auth ::deep a:first-child {
+            flex: 1;
+            text-align: right;
+            width: 0;
+        }
 
     .top-row, article {
         padding-left: 2rem !important;
@@ -94,3 +107,28 @@ main {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+.card {
+    width: 60vw;
+    height: 80vh;
+    margin: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-header, .card-footer {
+    background-color: #049DD9 !important;
+    color: white;
+    border-bottom: 1px solid #dee2e6;
+    text-align: center
+}
+
+.card-body {
+    background-color: white;
+    overflow-y: auto;
+}
+
+.modal-header {
+    background-color: #049DD9 !important;
+}

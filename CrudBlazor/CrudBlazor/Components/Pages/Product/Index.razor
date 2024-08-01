@@ -13,7 +13,7 @@
 }
 else if (Products.Count() == 0)
 {
-    <p>No Products</p>
+    <ModalProductAdd UpdateList="@UpdateProductList"></ModalProductAdd>
 }
 else
 {
@@ -41,11 +41,15 @@ else
                     </td>
                 </tr>
             }
+            <tr>
+                <td colspan="5" class="align-items-center">
+                    <ModalProductAdd UpdateList="@UpdateProductList"></ModalProductAdd>
+                </td>
+            </tr>
         </tbody>
     </table>
 }
 
-<ModalProductAdd UpdateList="UpdateProductList"></ModalProductAdd>
 
 
 
