@@ -23,7 +23,7 @@ else
                 <th>Name</th>
                 <th>Price</th>
                 <th>Description</th>
-                <th>Category</th>
+                <th>Product</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -35,6 +35,10 @@ else
                     <td>@product.Price</td>
                     <td>@product.Description</td>
                     <td>@product.Category.Name</td>
+                    <td class="btn-group">
+                        <ModalProductEdit Product="product" UpdateList="@UpdateProductList"></ModalProductEdit>
+                        <button type="button" @onclick="() => DeleteProduct(product)" class="btn btn-danger"><span class="bi bi-trash"></span></button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -63,6 +67,12 @@ else
         IsLoading = false;
     }
 
+
+    public async Task DeleteProduct(Product Product)
+    {
+        await ProductBusinessRules.DeleteProductAsync(Product.Id);
+        await UpdateProductList();
+    }
 
 
 

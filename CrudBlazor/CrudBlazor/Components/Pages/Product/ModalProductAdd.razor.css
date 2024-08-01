@@ -5,9 +5,11 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.modal-header, .modal-footer {
+    background-color: rgba( 102, 51, 153);
+}
 
 .modal-header {
-    background-color: rgb(5, 23, 61);
     border-bottom: 1px solid #ddd;
     padding: 10px 15px;
 }

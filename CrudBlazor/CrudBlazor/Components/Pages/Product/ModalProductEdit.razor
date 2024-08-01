@@ -1,0 +1,104 @@
+﻿@inject ProductBusinessRules ProductBusinessRules
+@inject NavigationManager Navigation
+@inject CategoryBusinessRules CategoryBusinessRules
+@rendermode InteractiveServer
+
+
+<button type="button" class="btn btn-primary form-control" @onclick="ShowAddProductModal"><span class="bi bi-pencil-fill"></span></button>
+
+@if (showEditProductModal)
+{
+    <EditForm Model="@Product" OnSubmit="EditProduct">
+        <div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
+
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Product</h5>
+                        <a type="button" class="close" @onclick="CloseModal">
+                            <span aria-hidden="true"><i class="bi bi-x"></i></span>
+                        </a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="productName">Name:</label>
+                            <input type="text" class="form-control" id="productName" @bind="Product.Name">
+                            <ValidationMessage For="() => Product!.Name" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productPrice">Price:</label>
+                            <input type="number" class="form-control" id="productPrice" @bind="Product.Price">
+                            <ValidationMessage For="() => Product!.Price" />
+                        </div>
+                        <div class="form-group">
+                            <label for="productDescription">Description:</label>
+                            <textarea class="form-control" id="productDescription" rows="3" @bind="Product.Description"></textarea>
+                            <ValidationMessage For="() => Product!.Description" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productCategory">Category:</label>
+                            <select class="form-control" @bind="Product.CategoryId" @onclick="GetAllCategories">
+                                <option value="">Select a category</option>
+                                @if (Categories?.Count() > 0)
+                                {
+                                    @foreach (var category in Categories)
+                                    {
+                                        <option value="@category.Id">@category.Name</option>
+                                    }
+                                }
+                            </select>
+                            <ValidationMessage For="() => Product!.CategoryId" />
+                        </div>
+
+                        <DataAnnotationsValidator></DataAnnotationsValidator>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" @onclick="CloseModal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Product</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </EditForm>
+}
+
+
+@code {
+
+    [Parameter]
+    public EventCallback<bool> UpdateList { get; set; }
+
+    [Parameter]
+    public Product? Product { get; set; }
+    private IEnumerable<Category> Categories;
+
+    private bool showEditProductModal = false;
+
+    private async Task GetAllCategories()
+    {
+        Categories = await CategoryBusinessRules.GetAllCategorysAsync();
+    }
+
+
+    private async Task EditProduct()
+    {
+        await ProductBusinessRules.UpdateProductAsync(Product);
+        showEditProductModal = false;
+        await UpdateList.InvokeAsync();
+    }
+
+
+    private void ShowAddProductModal()
+    {
+        showEditProductModal = true;
+    }
+
+    private void CloseModal()
+    {
+        showEditProductModal = false;
+    }
+}
