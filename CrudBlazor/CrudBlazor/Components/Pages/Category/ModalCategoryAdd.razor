@@ -9,7 +9,6 @@
 {
     <EditForm Model="@NewCategory" OnSubmit="AddCategory">
         <div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
-
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -38,7 +37,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </EditForm>
 }
@@ -53,7 +51,7 @@
 
     private Category NewCategory = new();
     private async Task AddCategory()
-    { a
+    {
         await CategoryBusinessRules.CreateCategoryAsync(NewCategory);
         showAddCategoryModal = false;
         await UpdateList.InvokeAsync();
